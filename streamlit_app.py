@@ -1,5 +1,6 @@
 #import packages
 import streamlit as st
+import pandas as pd
 
 st.title("Lucy's Lovely Brannigan Brunch")
 
@@ -18,3 +19,7 @@ st.text("Sticky Toffee Pudding Hot Chocolate")
 st.subheader("Cold Drinks")
 st.text("Orange Juice")
 st.text("Apple Juice")
+
+st.subheader("Build your own fruit smoothie ! ")
+my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
+st.dataframe(my_fruit_list)
