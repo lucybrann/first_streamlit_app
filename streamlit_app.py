@@ -28,7 +28,10 @@ my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/da
 #change index
 my_fruit_list = my_fruit_list.set_index('Fruit')
 
-st.multiselect("Select your favourite fruits !! :", list(my_fruit_list.index), ['Strawberries'])
+fruits_selected = st.multiselect("Select your favourite fruits !! :", list(my_fruit_list.index), ['Strawberries'])
+
+#create new dataframe of just the fruits selected
+fruits_to_show = my_fruits_list.loc[fruits_selected]
 
 #show nutritional info
-st.dataframe(my_fruit_list)
+st.dataframe(fruits_to_show)
