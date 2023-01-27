@@ -31,7 +31,7 @@ my_fruit_list = my_fruit_list.set_index('Fruit')
 fruits_selected = st.multiselect("Select your favourite fruits !! :", list(my_fruit_list.index), ['Strawberries'])
 
 #create new dataframe of just the fruits selected
-fruits_to_show = my_fruits_list.loc[fruits_selected]
+fruits_to_show = my_fruit_list.loc[fruits_selected]
 
 #show nutritional info
 st.dataframe(fruits_to_show)
