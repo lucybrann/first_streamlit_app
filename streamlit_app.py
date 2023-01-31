@@ -39,11 +39,12 @@ st.dataframe(fruits_to_show)
 
 #new section to display fruityvice api
 import requests
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-st.text(fruityvice_response.json()) #this just outputs the json file to the screen
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
 
 # normalises the json -- so puts it as a normalised table format
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+
+st.header("Some recommended shtuff:")
 # shows the table as a dataframe
 st.dataframe(fruityvice_normalized)
 
