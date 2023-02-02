@@ -43,17 +43,20 @@ st.dataframe(fruits_to_show)
 import requests
 st.header("what fruit would you like to know about ?")
 
+
+#create function
+def get_fruity_vice_data(this_fruit_choice):
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + this_fruit_choice)
+    return fruityvice_normalized = pd.json_normalize(fruityvice_response.json()) # normalises the json -- so puts it as a normalised table format
+
 #try except statement
 try: 
   fruit_choice = st.text_input('What fruit would you like information about?')
   if not fruit_choice:
     st.error('Please select a fruit.')
   else:
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
-    # normalises the json -- so puts it as a normalised table format
-    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-    # shows the table as a dataframe
-    st.dataframe(fruityvice_normalized)
+    data_returned = get_fruity_vice_data(fruit_choice)
+    st.dataframe(data_returned) # returns the table as a dataframe
 except URLError as e:
   st.error()
   
