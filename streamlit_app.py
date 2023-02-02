@@ -47,7 +47,8 @@ st.header("what fruit would you like to know about ?")
 #create function
 def get_fruity_vice_data(this_fruit_choice):
     fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + this_fruit_choice)
-    return fruityvice_normalized = pd.json_normalize(fruityvice_response.json()) # normalises the json -- so puts it as a normalised table format
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json()) # normalises the json -- so puts it as a normalised table format
+    return fruityvice_normalized
 
 #try except statement
 try: 
