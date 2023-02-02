@@ -88,16 +88,3 @@ if st.button('Add a fruit to the list'):
     my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
     back_from_function = insert_into_snowflake(add_my_fruit)
     st.text(back_from_function)
-
-
-
-#my_data_row = my_cur.fetchone()
-
-st.header("The fruit list contains:")
-st.dataframe(my_data_rows)
-
-#ask if they want new fruit
-add_my_fruit = st.text_input('What fruit would you like to add to the list?')
-st.write('Thank you for adding ', add_my_fruit)
-
-my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values ('from streamlit') ")
