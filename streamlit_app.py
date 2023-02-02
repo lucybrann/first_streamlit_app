@@ -63,19 +63,36 @@ except URLError as e:
   
 
 
+#new buttons to update list
+
+def get_fruit_load_list():
+    with my_cnx.cursor() as my_cur:
+        my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
+        return my_cur.fetchall()
+    
+def insert_into_snowflake(new_fruit):
+    with my_cnx.cursor() as my_cur:
+        my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values (new_fruit)")
+        return 'Thank you for adding '+ new_fruit
+
+#add a button to load fruit data
+if st.button('Get new Fruit Load list'):
+    #connect python to snowflake yee
+    my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+    my_data_rows = get_fruit_load_list()
+    st.dataframe(my_data_rows)
+    
+#add a button to add fruit to the list
+add_my_fruit = st.text_input('What fruit would you like to add to the list ?')
+if st.button('Add a fruit to the list'):
+    my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+    back_from_function = insert_into_snowflake(add_my_fruit)
+    st.text(back_from_function)
 
 
-  
-st.stop() #don't run this yet
-
-#connect python to snowflake yee
-my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
 
 #my_data_row = my_cur.fetchone()
 
-my_data_rows = my_cur.fetchall() #return all !!
 st.header("The fruit list contains:")
 st.dataframe(my_data_rows)
 
