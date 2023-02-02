@@ -43,17 +43,23 @@ st.dataframe(fruits_to_show)
 import requests
 st.header("what fruit would you like to know about ?")
 
-fruit_choice = st.text_input('What fruit would you like information about?','Kiwi')
-st.write('The user entered ', fruit_choice)
+#try except statement
+try: 
+  fruit_choice = st.text_input('What fruit would you like information about?')
+  if not fruit_choice:
+    st.error('Please select a fruit.')
+  else:
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+    # normalises the json -- so puts it as a normalised table format
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    # shows the table as a dataframe
+    st.dataframe(fruityvice_normalized)
+except URLError as e:
+  st.error()
+  
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
-
-# normalises the json -- so puts it as a normalised table format
-fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 
 
-# shows the table as a dataframe
-st.dataframe(fruityvice_normalized)
 
 #connect python to snowflake yee
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
